@@ -1,4 +1,4 @@
-package com.BCesunProject.demo;
+package com.BCesunProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
