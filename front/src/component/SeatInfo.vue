@@ -3,7 +3,7 @@
   { 'ordered-seat': employeeId }]" 
   :style="{ pointerEvents: employeeId ? 'none' : 'auto' }" @click="emitClick">
     <h4 class="seat-content">{{ floorNo }}樓: 座位{{ seatNo }}</h4>
-    <h5 v-if="employeeId" class="mt-3">[員編: {{ employeeId }}]</h5>
+    <h5 v-if="employeeId" class="mt-2">[員編: {{ employeeId }}]</h5>
   </div>
 </template>
 
