@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,18 +54,15 @@ public class SeatController {
         return seatingChartDTOList;
     }
 
-    @PostMapping("/api/updateseat")
-    public ResponseEntity<String> updateseat(@RequestParam String empId, @RequestParam Integer floorSeatSeq) {
-        employeeService.updatEmployee(empId, floorSeatSeq);
+    @PutMapping("/api/updateseat")
+    public ResponseEntity<String> updateSeat(@RequestParam String empId, @RequestParam Integer floorSeatSeq) {
+        employeeService.updateEmployee(empId, floorSeatSeq);
         return ResponseEntity.ok().body("seat order success");
     }
 
-    // @GetMapping("/index")
-    // @ResponseBody
-    // public Integer getMethodName() {
-    // SeatingChart seat = seatService.findSeat(1);
-    // Integer seatno = seat.getFloorSeatSeq();
-    // return seatno;
-    // }
-
+    @PutMapping("/api/removeseat")
+    public ResponseEntity<String> removeSeat(@RequestParam String empId) {
+        employeeService.removeSeat(empId);
+        return ResponseEntity.ok().body("seat remove success");
+    }
 }

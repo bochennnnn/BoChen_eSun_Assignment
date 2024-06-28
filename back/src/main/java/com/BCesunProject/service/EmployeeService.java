@@ -21,11 +21,16 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
 
-    public Employee updatEmployee(String empId, Integer floorSeatSeq) {
+    public Employee updateEmployee(String empId, Integer floorSeatSeq) {
         Employee emp = employeeRepo.findByEmpId(empId);
         SeatingChart seat = seatService.findSeat(floorSeatSeq);
-        // System.out.println(emp.getEmpId());
         emp.setSeatingChart(seat);
+        return employeeRepo.save(emp);
+    }
+
+    public Employee removeSeat(String empId) {
+        Employee emp = employeeRepo.findByEmpId(empId);
+        emp.setSeatingChart(null);
         return employeeRepo.save(emp);
     }
 }
