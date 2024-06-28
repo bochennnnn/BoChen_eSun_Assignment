@@ -7,4 +7,6 @@ import com.BCesunProject.model.bean.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findAll();
+
+    Employee findByEmpId(String empId);
 }
