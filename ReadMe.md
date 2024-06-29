@@ -1,7 +1,3 @@
-# 玉山
-
-Date: June 27, 2024
-
 ## 作品介紹
 
 > 這個作品是一個基於Spring Boot和Vue.js建構。前端使用Vue 3框架；後端使用Spring Boot提供API服務，並使用MS SQL資料庫存取資料。
@@ -44,6 +40,8 @@ Date: June 27, 2024
 ![Untitled](readmeIMG/Untitled%205.png)
 
 ![Untitled](readmeIMG/Untitled%206.png)
+
+---
 
 ## 使用技術
 
