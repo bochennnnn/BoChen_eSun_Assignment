@@ -11,5 +11,4 @@ public class SeatingChartDTO {
     private Integer floorNo;
     private Integer seatNo;
     private String empId;
-
 }

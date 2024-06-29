@@ -83,11 +83,11 @@ Spring Boot 專案
 
 - **JDK**: 17
 - **Spring Boot**: v3.2.3
-- **Maven**:
+- **Maven**
 
 ### 資料庫
 
-- **MS SQL**:
+- **MS SQL**
 
 ---
 
@@ -109,7 +109,7 @@ Spring Boot 專案
     npm run dev
     ```
     
-4. 前端開發伺服器將在默認的 http://localhost:5173 執行。
+4. 前端開發伺服器將在預設的 http://localhost:5173 執行。
 
 ### 後端
 
