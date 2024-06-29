@@ -1,8 +1,5 @@
 USE master
 
--- ALTER DATABASE esunAssignment SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
--- DROP DATABASE esunAssignment
-
 CREATE DATABASE esunAssignment
 GO
 
