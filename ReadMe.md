@@ -96,6 +96,7 @@ Spring Boot 專案
 
 - **MS SQL**
 
+
 ---
 
 ## 環境設定
@@ -122,6 +123,16 @@ Spring Boot 專案
 
 1. 進入 `backend` 目錄，運行 Spring Boot 應用：
 2. 後端伺服器會在 [http://localhost:8080](http://localhost:8080/) 執行。
+
+<aside>
+💡 請確保在 Spring Boot 的 application.properties 文件中，將資料庫的連接設定更改為您本機環境的資料庫帳號和密碼。以下是範例：
+
+</aside>
+
+```
+spring.datasource.username=使用者（sa）
+spring.datasource.password=使用者密碼（P@ssw0rd）
+```
 
 ---
 
