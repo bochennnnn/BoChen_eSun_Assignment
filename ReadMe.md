@@ -43,19 +43,32 @@
 
 ---
 
----
-
 ## 專案主要架構
 
 該專案的目錄結構如下所示：
 
 ```
-
 esunProject/
 ├── back
 ├── DB
 └── front
 ```
+## 說明
+
+### front
+
+本專案使用Vite作為前端建構工具，並基於Vue.js框架進行開發。
+
+### back
+
+Spring Boot 專案
+
+### DB
+
+- **Create.sql**: 用於創建資料庫結構。
+- **Insert.sql**: 用於寫入初始化數據。
+
+---
 
 ## 使用技術
 
@@ -75,23 +88,6 @@ esunProject/
 ### 資料庫
 
 - **MS SQL**:
-
----
-
-## 說明
-
-### front
-
-本專案使用Vite作為前端建構工具，並基於Vue.js框架進行開發。
-
-### back
-
-Spring Boot 專案
-
-### DB
-
-- **Create.sql**: 用於創建資料庫結構。
-- **Insert.sql**: 用於寫入初始化數據。
 
 ---
 
