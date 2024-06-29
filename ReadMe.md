@@ -130,7 +130,7 @@ Spring Boot 專案
 </aside>
 
 ```
-spring.datasource.username=使用者（sa）
+spring.datasource.username=使用者帳號（sa）
 spring.datasource.password=使用者密碼（P@ssw0rd）
 ```
 
@@ -140,6 +140,7 @@ spring.datasource.password=使用者密碼（P@ssw0rd）
 
 1. 確保已安裝 MS SQL。
 2. 資料庫相關設定：
+    - **資料庫名**：esunAssignment
     - **埠號**: 1433
     - **用戶名**: sa
     - **密碼**: P@ssw0rd
