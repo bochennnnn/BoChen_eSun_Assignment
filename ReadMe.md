@@ -41,6 +41,13 @@
 
 ![Untitled](readmeIMG/Untitled%206.png)
 
+> 如果座位被11223員工預定了（左圖），55667員工在頁面沒有刷新的情況下（右圖），訂了1樓座位1，按下『送出』之後，再次確認座位按『確認』，會彈出alert告訴使用者，這個位置已經被預訂了
+> 
+
+![Untitled](readmeIMG/Untitled%207.png)
+
+![Untitled](readmeIMG/Untitled%208.png)
+
 ---
 
 ## 專案主要架構
