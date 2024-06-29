@@ -20,13 +20,14 @@ INSERT INTO SeatingChart (FLOOR_SEAT_SEQ, FLOOR_NO, SEAT_NO) VALUES
 
 -- Employee
 
-INSERT INTO Employee (EMP_ID, NAME, EMAIL) VALUES 
-('12345', 'Alice', 'alice@example.com'),
-('67890', 'Bob', 'bob@example.com'),
-('13579', 'Charlie', 'charlie@example.com'),
-('24680', 'David', 'david@example.com'),
-('11223', 'Eve', 'eve@example.com'),
-('33445', 'Frank', 'frank@example.com'),
-('55667', 'Grace', 'grace@example.com'),
-('77889', 'Hank', 'hank@example.com'),
-('99000', 'Ivy', 'ivy@example.com'),
+INSERT INTO Employee (EMP_ID, NAME, EMAIL, FLOOR_SEAT_SEQ) VALUES 
+('12345', 'Alice', 'alice@example.com', NULL),
+('67890', 'Bob', 'bob@example.com', NULL),
+('13579', 'Charlie', 'charlie@example.com', NULL),
+('24680', 'David', 'david@example.com', NULL),
+('11223', 'Eve', 'eve@example.com', NULL),
+('33445', 'Frank', 'frank@example.com', NULL),
+('55667', 'Grace', 'grace@example.com', NULL),
+('77889', 'Hank', 'hank@example.com', NULL),
+('99000', 'Ivy', 'ivy@example.com', NULL),
+('10101', 'Jack', 'jack@example.com', 10);

@@ -1,14 +1,19 @@
-use master
-create database esunAssignment
+USE master
+
+-- ALTER DATABASE esunAssignment SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+-- DROP DATABASE esunAssignment
+
+CREATE DATABASE esunAssignment
 GO
-use esunAssignment
+
+USE esunAssignment
 
 -- SeatingChart
 CREATE TABLE SeatingChart (
     FLOOR_SEAT_SEQ INT PRIMARY KEY,
     FLOOR_NO INT NOT NULL,
     SEAT_NO INT NOT NULL
-);
+)
 
 -- Employee
 CREATE TABLE Employee (
@@ -18,3 +23,7 @@ CREATE TABLE Employee (
     FLOOR_SEAT_SEQ INT,
     FOREIGN KEY (FLOOR_SEAT_SEQ) REFERENCES SeatingChart(FLOOR_SEAT_SEQ)
 );
+
+-- 在MSSQL，只創建針對非NULL值唯一鍵，先在資料庫預防不同人重複訂到同一個位置
+CREATE UNIQUE NONCLUSTERED INDEX UQ_FLOOR_SEAT_SEQ ON Employee(FLOOR_SEAT_SEQ) 
+WHERE FLOOR_SEAT_SEQ IS NOT NULL;

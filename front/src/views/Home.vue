@@ -1,24 +1,29 @@
 <template>
   <div class="container">
-    <div class="row mt-4 mb-4 align-items-center">
-      <div class="col-3 align-items-center justify-content-end">
-        <label for="employeeId" class="form-label mb-0"><h5>員工編號</h5></label>
+    <h1 class="text-center mt-4">員工座位安排系統</h1>
+    <form class="row mt-4 mb-4 form-border align-items-center">
+      <div class="col-3">
+          <label for="employeeId" class="form-label"><h5>員工編號</h5></label>
+          <select class="form-select" v-model="selectedEmp" id="employeeId">
+            <option v-for="employee in employees" :key="employee.empId" :value="employee">
+              {{ employee.empId }}
+            </option>
+          </select>
+      </div>  
+      <div class="col-3">
+          <label for="employeeName" class="form-label mb-0"><h5>員工名稱</h5></label>
+          <div class="form-control-plaintext text-border" id="employeeName">
+            {{selectedEmp ? selectedEmp.name : '' }}
+          </div>
       </div>
       <div class="col-3">
-        <select id="employeeId" class="form-select" v-model="selectedEmp">
-          <option v-for="employee in employees" :key="employee.empId" :value="employee">
-            {{ employee.empId }}
-          </option>
-        </select>
+          <label for="employeeEmail" class="form-label mb-0"><h5>員工信箱</h5></label>
+          <div class="form-control-plaintext text-border" id="employeeEmail">
+            {{ selectedEmp ? selectedEmp.email : '' }}
+          </div>
       </div>
-      <div class="col-3 d-flex align-items-center justify-content-end">
-        <label for="employeeName" class="form-label mb-0"><h5>員工姓名</h5></label>
-      </div>
-      <div class="col-3">
-        <input id="employeeName" type="text" class="form-control" :value="selectedEmp ? selectedEmp.name : ''" readonly />
-      </div>     
-    </div>
-
+    </form>
+    
     <div class="row row-cols-4">
       <SeatInfo v-for="seat in seats" :key="seat.floorSeatSeq"
         :floorNo="seat.floorNo" :seatNo="seat.seatNo" :employeeId="seat.empId"
@@ -43,7 +48,7 @@
         </div>
       </div>
       <div class="col-6 d-flex align-items-start justify-content-end">
-        <button class="me-3 btn btn-secondary" @click="removeSeat">清除</button>
+        <button class="me-2 btn btn-secondary" @click="removeSeat">清除</button>
         <button class="btn btn-primary " @click="updateSeat">送出</button>
       </div>
     </div>
@@ -79,6 +84,11 @@
           console.error(error);
         });
 
+        this.fetchSeats();
+    },
+    methods: {
+      // 取得座位資料，給mounted跟其他method使用
+      fetchSeats() {
       axios.get('http://localhost:8080/api/allseat')
         .then(response => {
           this.seats = response.data.map(seat => ({ ...seat, isSelected: false }));
@@ -86,8 +96,8 @@
         .catch(error => {
           console.error(error);
         });
-    },
-    methods: {
+      },
+
       handleSeatClick(seat) {
         this.seats.forEach(s => s.isSelected = false);
         this.seats.forEach(s => s.employeeId = null);
@@ -103,7 +113,7 @@
           floorSeatSeq: this.floorSeatSeq
         })).then(response => {
           console.log(response.data);
-          window.location.reload();
+          this.fetchSeats()
         })
         .catch(error => {
           console.error(error);
@@ -116,7 +126,7 @@
           empId: empId,
         })).then(response => {
           console.log(response.data);
-          window.location.reload();
+          this.fetchSeats()
         })
         .catch(error => {
           console.error(error);
@@ -127,8 +137,19 @@
 </script>
 
 <style scoped>
+  .form-border {
+    border: 1px solid #757575;
+    padding: 1em;
+    border-radius: 1em;
+  }
+
   .selected-seat {
     background-color: lightgreen;
+  }
+
+  .text-border {
+    border: 1px solid #757575;
+    padding-left: 1em;
   }
 
   .legend {
@@ -161,4 +182,5 @@
   .selected {
     background-color: rgb(133, 216, 133);
   }
+
 </style>
