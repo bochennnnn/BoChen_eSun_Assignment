@@ -48,7 +48,7 @@
 該專案的目錄結構如下所示：
 
 ```
-esunProject/
+BoChen_eSun_Assignment/
 ├── back
 ├── DB
 └── front
