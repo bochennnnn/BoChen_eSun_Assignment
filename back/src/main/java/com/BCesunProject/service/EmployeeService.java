@@ -28,9 +28,11 @@ public class EmployeeService {
         return employeeRepo.save(emp);
     }
 
-    public Employee removeSeat(String empId) {
+    public Integer removeSeat(String empId) {
         Employee emp = employeeRepo.findByEmpId(empId);
+        Integer floorSeatSeq = emp.getSeatingChart().getFloorSeatSeq();
         emp.setSeatingChart(null);
-        return employeeRepo.save(emp);
+        employeeRepo.save(emp);
+        return floorSeatSeq;
     }
 }

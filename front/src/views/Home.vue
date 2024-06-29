@@ -67,8 +67,10 @@
     data() {
       return {
         employees: [],
-        selectedEmp: null,
+        selectedEmp:null,
         floorSeatSeq:null,
+        floorNo:null,
+        seatNo:null,
         seats: [],
       };
     },
@@ -98,43 +100,53 @@
           });
       },
       handleSeatClick(seat) {
+        // 點擊後取消選擇
         this.seats.forEach(s => s.isSelected = false);
         this.seats.forEach(s => s.employeeId = null);
+        // 點擊後存取當前座位與員工編號
         seat.isSelected = true;
         seat.employeeId = this.selectedEmp.empId;
         this.floorSeatSeq = seat.floorSeatSeq;
+        this.floorNo = seat.floorNo;
+        this.seatNo = seat.seatNo;
       },
       updateSeat() {
         let empId = this.selectedEmp.empId;
-        // 送出表單前，先確認座位是否已被佔用
-        axios.get('http://localhost:8080/api/checkseat',{
-            params: {floorSeatSeq: this.floorSeatSeq}
-          }).then(response => {
-            return response.data 
-          }).then(isEmpty => {
-            // 空的位置，送出表單
-            if(isEmpty){
-              axios.put('http://localhost:8080/api/updateseat', 
-                new URLSearchParams({
-                  empId: empId,
-                  floorSeatSeq: this.floorSeatSeq
-                })).then(response => {
-                  console.log(response.data);
-                  this.fetchSeats()
-                })
-                .catch(error => {
-                  console.error(error);
+
+        if (this.floorSeatSeq != null) {
+            let reserved = confirm(`預定的座位為\n${this.floorNo}樓: 座位${this.seatNo}\n`);
+            if (reserved) {
+                // 送出表單前，先確認座位是否已被佔用
+                axios.get('http://localhost:8080/api/checkseat', {
+                    params: { floorSeatSeq: this.floorSeatSeq }
+                }).then(response => {
+                    return response.data 
+                }).then(isEmpty => {
+                    // 空的位置，送出表單
+                    if (isEmpty) {
+                        axios.put('http://localhost:8080/api/updateseat', 
+                          new URLSearchParams({
+                            empId: empId,
+                            floorSeatSeq: this.floorSeatSeq
+                          })).then(response => {
+                            console.log(response.data);
+                            this.fetchSeats()
+                            this.floorSeatSeq = null;
+                          })
+                          .catch(error => {
+                            console.error(error);
+                          });
+                    } else {
+                        // 非空的位置，請重新選擇
+                        alert("座位已被佔用，請重新選擇");
+                        this.fetchSeats();
+                    }
+                }).catch(error => {
+                    console.error(error);
                 });
             }
-            // 非空的位置，請重新選擇
-            if(!isEmpty){
-              alert("座位已被佔用，請重新選擇");
-              this.fetchSeats();
-            }
-          })
-          .catch(error => {
-            console.error(error);
-          });
+        }
+
       },
       removeSeat(){
         let empId = this.selectedEmp.empId;
@@ -142,8 +154,10 @@
         new URLSearchParams({
           empId: empId,
         })).then(response => {
-          console.log(response.data);
+          let exfloorSeatSeq = response.data;
+          let seat = this.seats.find(seat => seat.floorSeatSeq === exfloorSeatSeq);
           this.fetchSeats()
+          alert(`已取消預定座位\n${seat.floorNo}樓: 座位${seat.seatNo}`);
         })
         .catch(error => {
           console.error(error);

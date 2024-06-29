@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,8 +65,8 @@ public class SeatController {
     }
 
     @PutMapping("/api/removeseat")
-    public ResponseEntity<String> removeSeat(@RequestParam String empId) {
-        employeeService.removeSeat(empId);
-        return ResponseEntity.ok().body("seat remove success");
+    public ResponseEntity<Integer> removeSeat(@RequestParam String empId) {
+        Integer exfloorSeatSeq = employeeService.removeSeat(empId);
+        return ResponseEntity.ok().body(exfloorSeatSeq);
     }
 }
