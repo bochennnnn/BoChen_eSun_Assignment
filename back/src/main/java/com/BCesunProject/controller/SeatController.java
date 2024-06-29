@@ -54,6 +54,12 @@ public class SeatController {
         return seatingChartDTOList;
     }
 
+    @GetMapping("/api/checkseat")
+    public Boolean checkseat(@RequestParam Integer floorSeatSeq) {
+        Boolean isEmpty = seatService.checkSeat(floorSeatSeq);
+        return isEmpty;
+    }
+
     @PutMapping("/api/updateseat")
     public ResponseEntity<String> updateSeat(@RequestParam String empId, @RequestParam Integer floorSeatSeq) {
         employeeService.updateEmployee(empId, floorSeatSeq);

@@ -19,7 +19,7 @@
       <div class="col-3">
           <label for="employeeEmail" class="form-label mb-0"><h5>員工信箱</h5></label>
           <div class="form-control-plaintext text-border" id="employeeEmail">
-            {{ selectedEmp ? selectedEmp.email : '' }}
+            {{selectedEmp ? selectedEmp.email : '' }}
           </div>
       </div>
     </form>
@@ -34,16 +34,16 @@
       <div class="col-6">
         <div class="legend">
           <div class="legend-item">
-            <div class="color-box selected"></div>
-            <span>請選擇</span>
+            <div class="color-box empty"></div>
+            <span>空位</span>
           </div>
           <div class="legend-item">
             <div class="color-box occupied"></div>
             <span>已佔用</span>
           </div>
           <div class="legend-item">
-            <div class="color-box empty"></div>
-            <span>空位</span>
+            <div class="color-box selected"></div>
+            <span>請選擇</span>
           </div>
         </div>
       </div>
@@ -69,35 +69,34 @@
         employees: [],
         selectedEmp: null,
         floorSeatSeq:null,
-        seats: []
+        seats: [],
       };
     },
     mounted() {
+      // 取得員工資料
       axios.get('http://localhost:8080/api/allemployee')
         .then(response => {
           this.employees = response.data;
           // 預設第一個員工顯示
           this.selectedEmp = this.employees[0];
-          
         })
         .catch(error => {
           console.error(error);
         });
-
-        this.fetchSeats();
+      // 取得座位資料 
+      this.fetchSeats();
     },
     methods: {
       // 取得座位資料，給mounted跟其他method使用
       fetchSeats() {
-      axios.get('http://localhost:8080/api/allseat')
-        .then(response => {
-          this.seats = response.data.map(seat => ({ ...seat, isSelected: false }));
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        axios.get('http://localhost:8080/api/allseat')
+          .then(response => {
+            this.seats = response.data.map(seat => ({ ...seat, isSelected: false }));
+          })
+          .catch(error => {
+            console.error(error);
+          });
       },
-
       handleSeatClick(seat) {
         this.seats.forEach(s => s.isSelected = false);
         this.seats.forEach(s => s.employeeId = null);
@@ -107,17 +106,35 @@
       },
       updateSeat() {
         let empId = this.selectedEmp.empId;
-        axios.put('http://localhost:8080/api/updateseat', 
-        new URLSearchParams({
-          empId: empId,
-          floorSeatSeq: this.floorSeatSeq
-        })).then(response => {
-          console.log(response.data);
-          this.fetchSeats()
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        // 送出表單前，先確認座位是否已被佔用
+        axios.get('http://localhost:8080/api/checkseat',{
+            params: {floorSeatSeq: this.floorSeatSeq}
+          }).then(response => {
+            return response.data 
+          }).then(isEmpty => {
+            // 空的位置，送出表單
+            if(isEmpty){
+              axios.put('http://localhost:8080/api/updateseat', 
+                new URLSearchParams({
+                  empId: empId,
+                  floorSeatSeq: this.floorSeatSeq
+                })).then(response => {
+                  console.log(response.data);
+                  this.fetchSeats()
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+            }
+            // 非空的位置，請重新選擇
+            if(!isEmpty){
+              alert("座位已被佔用，請重新選擇");
+              this.fetchSeats();
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
       },
       removeSeat(){
         let empId = this.selectedEmp.empId;
@@ -173,7 +190,7 @@
 
   .empty {
     background-color: #f5f5f5;
-    border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+    border: 1px solid #8f8f8f; 
   }
 
   .occupied {

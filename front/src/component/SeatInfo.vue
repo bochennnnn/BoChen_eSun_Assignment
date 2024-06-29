@@ -34,6 +34,7 @@
     height: 100px;
     border-radius: 1em;
     background-color: #f5f5f5;
+    border: #cccccc 1.5px solid;
     transition: background-color 0.3s; 
   }
   .card-body {
