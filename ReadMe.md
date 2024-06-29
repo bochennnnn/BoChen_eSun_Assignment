@@ -95,7 +95,7 @@ Spring Boot 專案
 
 ### 前端
 
-1. 確保已安裝 [Node.js](https://nodejs.org/) 和 npm。
+1. 確保已安裝 Node.js 和 npm。
 2. 進入 `frontend` 目錄，安裝依賴：
     
     ```bash
