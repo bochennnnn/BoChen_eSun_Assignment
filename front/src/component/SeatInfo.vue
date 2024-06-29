@@ -1,9 +1,13 @@
 <template>
-  <div :class="['border', 'p-4', 'text-center', 'seatinfo', { 'selected-seat': isSelected }, 
-  { 'ordered-seat': employeeId }]" 
-  :style="{ pointerEvents: employeeId ? 'none' : 'auto' }" @click="emitClick">
-    <h4 class="seat-content">{{ floorNo }}樓: 座位{{ seatNo }}</h4>
-    <h5 v-if="employeeId" class="mt-2">[員編: {{ employeeId }}]</h5>
+  <div class="col mb-4">
+    <div :class="['card', {'selected-seat': isSelected },{ 'ordered-seat': employeeId }]" 
+    :style="{ pointerEvents: employeeId ? 'none' : 'auto' }" 
+    @click="emitClick">
+      <div class="card-body">
+        <h4 class="seat-content">{{ floorNo }}樓: 座位{{ seatNo }}</h4>
+        <h5 v-if="employeeId" class="mt-2">[員編: {{ employeeId }}]</h5>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,16 +29,20 @@
 </script>
 
 <style scoped>
-  .seatinfo {
-    width: 19%;
+  .card{
+    width: 100%;
     height: 100px;
+    border-radius: 1em;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s; 
+  }
+  .card-body {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 1em;
-    background-color: #f5f5f5;
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    text-align: center;
   }
   .selected-seat {
     background-color: rgb(133, 216, 133);
@@ -45,7 +53,7 @@
   .seat-content {
     margin: 0;
   }
-  .seatinfo:hover {
-    background-color: #cccccc; /* Change color on hover */
+  .card:hover {
+    background-color: #cccccc;
   }
 </style>
